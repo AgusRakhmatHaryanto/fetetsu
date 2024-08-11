@@ -16,7 +16,7 @@ const Progress = () => {
   const fetchData = async () => {
     try {
       setLoading(true);
-      const response = await axios.get("https://betetsuberkah-6f6722853e65.herokuapp.com/orders");
+      const response = await axios.get("https://betetsuberkah-6f6722853e65.herokuapp.com/api/v1/orders");
       setOrders(response.data.data);
     } catch (error) {
       console.error("Error fetching data:", error);

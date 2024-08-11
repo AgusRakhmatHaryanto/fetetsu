@@ -63,7 +63,7 @@ export default function CreateUser() {
       }
 
       const response = await axios.post(
-        `https://betetsuberkah-6f6722853e65.herokuapp.com/users`,
+        `https://betetsuberkah-6f6722853e65.herokuapp.com/api/v1/users`,
         formData,
         {
           headers: {

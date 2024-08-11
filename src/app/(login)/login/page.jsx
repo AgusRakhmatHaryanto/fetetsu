@@ -26,7 +26,7 @@ export default function Login() {
 
     try {
       // Ganti URL ini dengan endpoint API login Anda
-      const response = await fetch('https://betetsuberkah-6f6722853e65.herokuapp.com/users/login', {
+      const response = await fetch('https://betetsuberkah-6f6722853e65.herokuapp.com/api/v1/users/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

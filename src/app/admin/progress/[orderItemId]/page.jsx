@@ -19,7 +19,7 @@ const OrderItemProgress = ({ params }) => {
   const fetchData = async () => {
     try {
       setLoading(true);
-      const response = await axios.get(`https://betetsuberkah-6f6722853e65.herokuapp.com/progress/order-item/${orderItemId}`);
+      const response = await axios.get(`https://betetsuberkah-6f6722853e65.herokuapp.com/api/v1/progress/order-item/${orderItemId}`);
       setProgresses(response.data.data);
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -36,7 +36,7 @@ const OrderItemProgress = ({ params }) => {
 
   const handleAddProgress = async () => {
     try {
-      const response = await axios.post(`https://betetsuberkah-6f6722853e65.herokuapp.com/progress/order-item/${orderItemId}`, newProgress);
+      const response = await axios.post(`https://betetsuberkah-6f6722853e65.herokuapp.com/api/v1/progress/order-item/${orderItemId}`, newProgress);
       setProgresses([...progresses, response.data.data]);
       setNewProgress({ description: "" });
     } catch (error) {
@@ -47,7 +47,7 @@ const OrderItemProgress = ({ params }) => {
 
   const handleEditProgress = async (id) => {
     try {
-      const response = await axios.put(`https://betetsuberkah-6f6722853e65.herokuapp.com/progress/${id}`, { description: editingProgress.description });
+      const response = await axios.put(`https://betetsuberkah-6f6722853e65.herokuapp.com/api/v1/progress/${id}`, { description: editingProgress.description });
       const updatedData = progresses.map((progress) =>
         progress.id === id ? response.data.data : progress
       );
@@ -61,7 +61,7 @@ const OrderItemProgress = ({ params }) => {
 
   const handleDeleteProgress = async (id) => {
     try {
-      await axios.delete(`https://betetsuberkah-6f6722853e65.herokuapp.com/progress/${id}`);
+      await axios.delete(`https://betetsuberkah-6f6722853e65.herokuapp.com/api/v1/progress/${id}`);
       const updatedData = progresses.filter((progress) => progress.id !== id);
       setProgresses(updatedData);
     } catch (error) {

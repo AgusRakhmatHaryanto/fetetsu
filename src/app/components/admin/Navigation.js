@@ -30,7 +30,7 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
         }
         if (userId) {
           try {
-            const response = await fetch(`https://betetsuberkah-6f6722853e65.herokuapp.com/users/${userId}`);
+            const response = await fetch(`https://betetsuberkah-6f6722853e65.herokuapp.com/api/v1/users/${userId}`);
             const data = await response.json();
             setUserType(data.data.role);
           } catch (error) {

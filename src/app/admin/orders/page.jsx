@@ -22,7 +22,7 @@ const Order = () => {
   const fetchOrders = async () => {
     try {
       setLoading(true);
-      const response = await axios.get("https://betetsuberkah-6f6722853e65.herokuapp.com/orders");
+      const response = await axios.get("https://betetsuberkah-6f6722853e65.herokuapp.com/api/v1/orders");
       console.log("API response:", response.data);
       if (Array.isArray(response.data.data)) {
         setOrders(response.data.data);
@@ -67,7 +67,7 @@ const Order = () => {
     const confirmDelete = window.confirm("Apakah Anda yakin ingin menghapus pesanan ini?");
     if (confirmDelete) {
       try {
-        await axios.delete(`https://betetsuberkah-6f6722853e65.herokuapp.com/orders/${orderId}`);
+        await axios.delete(`https://betetsuberkah-6f6722853e65.herokuapp.com/api/v1/orders/${orderId}`);
         setOrders(orders.filter(order => order.id !== orderId));
         alert("Pesanan berhasil dihapus");
       } catch (error) {
@@ -84,7 +84,7 @@ const Order = () => {
 
   const handleSaveStatus = async (orderId) => {
     try {
-      await axios.put(`https://betetsuberkah-6f6722853e65.herokuapp.com/orders/${orderId}/status`, { status: newStatus });
+      await axios.put(`https://betetsuberkah-6f6722853e65.herokuapp.com/api/v1/orders/${orderId}/status`, { status: newStatus });
       setOrders(orders.map(order => order.id === orderId ? { ...order, status: newStatus } : order));
       setEditingOrderId(null);
       alert("Status pesanan berhasil diperbarui");

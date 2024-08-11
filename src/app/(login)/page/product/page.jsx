@@ -20,7 +20,7 @@ export default function ProductsPage() {
     const fetchProducts = async () => {
       try {
         setLoading(true);
-        const response = await axios.get('https://betetsuberkah-6f6722853e65.herokuapp.com/products');
+        const response = await axios.get('https://betetsuberkah-6f6722853e65.herokuapp.com/api/v1/products');
         const allProducts = response.data.data;
         setProducts(allProducts);
         setLoading(false);

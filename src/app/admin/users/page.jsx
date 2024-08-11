@@ -28,7 +28,7 @@ export default function UsersPage() {
   const fetchUsers = async () => {
     try {
       setLoading(true);
-      const response = await axios.get("https://betetsuberkah-6f6722853e65.herokuapp.com/users/");
+      const response = await axios.get("https://betetsuberkah-6f6722853e65.herokuapp.com/api/v1/users/");
       if (Array.isArray(response.data.data)) {
         setUsers(response.data.data);
       } else {
@@ -50,7 +50,7 @@ export default function UsersPage() {
 
   const handleDeleteUser = async () => {
     try {
-      await axios.delete(`https://betetsuberkah-6f6722853e65.herokuapp.com/users/${userToDelete}`);
+      await axios.delete(`https://betetsuberkah-6f6722853e65.herokuapp.com/api/v1/users/${userToDelete}`);
       setUsers(users.filter((user) => user.id !== userToDelete));
       setShowConfirmation(false);
       setUserToDelete(null);

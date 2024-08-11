@@ -53,11 +53,11 @@ export default function EditProduct() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const categoriesResponse = await axios.get("https://betetsuberkah-6f6722853e65.herokuapp.com/categories");
+        const categoriesResponse = await axios.get("https://betetsuberkah-6f6722853e65.herokuapp.com/api/v1/categories");
         setCategories(categoriesResponse.data.data);
 
         if (productId) {
-          const productResponse = await axios.get(`https://betetsuberkah-6f6722853e65.herokuapp.com/products/${productId}`);
+          const productResponse = await axios.get(`https://betetsuberkah-6f6722853e65.herokuapp.com/api/v1/products/${productId}`);
           const productData = productResponse.data.data;
           console.log(productData);
           setFormData({
@@ -104,7 +104,7 @@ export default function EditProduct() {
 
     try {
       const response = await axios.put(
-        `https://betetsuberkah-6f6722853e65.herokuapp.com/products/${productId}`,
+        `https://betetsuberkah-6f6722853e65.herokuapp.com/api/v1/products/${productId}`,
         formDataToSend,
         {
           headers: {

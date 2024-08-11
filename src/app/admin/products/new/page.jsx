@@ -49,7 +49,7 @@ export default function NewProduct() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const categoriesResponse = await axios.get("https://betetsuberkah-6f6722853e65.herokuapp.com/categories");
+        const categoriesResponse = await axios.get("https://betetsuberkah-6f6722853e65.herokuapp.com/api/v1/categories");
         setCategories(categoriesResponse.data.data);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -88,7 +88,7 @@ export default function NewProduct() {
 
     try {
       const response = await axios.post(
-        "https://betetsuberkah-6f6722853e65.herokuapp.com/products",
+        "https://betetsuberkah-6f6722853e65.herokuapp.com/api/v1/products",
         formDataToSend,
         {
           headers: {

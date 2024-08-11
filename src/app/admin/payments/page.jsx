@@ -20,7 +20,7 @@ export default function AdminPaymentProof() {
     try {
       setLoading(true);
       const response = await axios.get(
-        "https://betetsuberkah-6f6722853e65.herokuapp.com/payment-proof"
+        "https://betetsuberkah-6f6722853e65.herokuapp.com/api/v1/payment-proof"
       );
       if (response.status !== 200) {
         throw new Error("Gagal mengambil data bukti pembayaran");
@@ -48,7 +48,7 @@ export default function AdminPaymentProof() {
       const ordersData = await Promise.all(
         uniqueOrderIds.map(async (orderId) => {
           const response = await axios.get(
-            `https://betetsuberkah-6f6722853e65.herokuapp.com/orders/${orderId}`
+            `https://betetsuberkah-6f6722853e65.herokuapp.com/api/v1/orders/${orderId}`
           );
           if (response.status !== 200) {
             throw new Error(
@@ -79,7 +79,7 @@ export default function AdminPaymentProof() {
   const handleApprove = async (orderId) => {
     try {
       const response = await axios.put(
-        `https://betetsuberkah-6f6722853e65.herokuapp.com/orders/${orderId}`,
+        `https://betetsuberkah-6f6722853e65.herokuapp.com/api/v1/orders/${orderId}`,
         {
           paymentStatus: "ACC",
         }
@@ -98,7 +98,7 @@ export default function AdminPaymentProof() {
   const handleReject = async (id) => {
     try {
       const response = await axios.put(
-        `https://betetsuberkah-6f6722853e65.herokuapp.com/payment-proof/${id}/reject`
+        `https://betetsuberkah-6f6722853e65.herokuapp.com/api/v1/payment-proof/${id}/reject`
       );
       if (response.status !== 200) {
         throw new Error("Gagal menolak bukti pembayaran");

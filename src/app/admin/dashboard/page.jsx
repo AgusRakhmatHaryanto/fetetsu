@@ -17,9 +17,9 @@ function AdminDashboard() {
     const fetchCounts = async () => {
       try {
         const [usersRes, productsRes, ordersRes] = await Promise.all([
-          axios.get('https://betetsuberkah-6f6722853e65.herokuapp.com/users'),
-          axios.get('https://betetsuberkah-6f6722853e65.herokuapp.com/products'),
-          axios.get('https://betetsuberkah-6f6722853e65.herokuapp.com/orders'),
+          axios.get('https://betetsuberkah-6f6722853e65.herokuapp.com/api/v1/users'),
+          axios.get('https://betetsuberkah-6f6722853e65.herokuapp.com/api/v1/products'),
+          axios.get('https://betetsuberkah-6f6722853e65.herokuapp.com/api/v1/orders'),
         ]);
 
         setCounts({
