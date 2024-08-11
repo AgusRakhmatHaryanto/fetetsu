@@ -1,9 +1,9 @@
 "use client";
 
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import AdminLayout from '../../layout';
-import { FaUsers, FaBox, FaClipboardList, FaCog } from 'react-icons/fa';
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import AdminLayout from "../../layout";
+import { FaUsers, FaBox, FaClipboardList, FaCog } from "react-icons/fa";
 
 function AdminDashboard() {
   const [counts, setCounts] = useState({
@@ -17,9 +17,15 @@ function AdminDashboard() {
     const fetchCounts = async () => {
       try {
         const [usersRes, productsRes, ordersRes] = await Promise.all([
-          axios.get('https://betetsuberkah-6f6722853e65.herokuapp.com/api/v1/users'),
-          axios.get('https://betetsuberkah-6f6722853e65.herokuapp.com/api/v1/products'),
-          axios.get('https://betetsuberkah-6f6722853e65.herokuapp.com/api/v1/orders'),
+          axios.get(
+            "https://betetsuberkah-6f6722853e65.herokuapp.com/api/v1/users"
+          ),
+          axios.get(
+            "https://betetsuberkah-6f6722853e65.herokuapp.com/api/v1/products"
+          ),
+          axios.get(
+            "https://betetsuberkah-6f6722853e65.herokuapp.com/api/v1/orders"
+          ),
         ]);
 
         setCounts({
@@ -29,7 +35,7 @@ function AdminDashboard() {
           settings: null, // Assuming settings don't need a count
         });
       } catch (error) {
-        console.error('Error fetching counts:', error);
+        console.error("Error fetching counts:", error);
       }
     };
 
@@ -37,10 +43,34 @@ function AdminDashboard() {
   }, []);
 
   const dashboardItems = [
-    { title: 'Pengguna', icon: FaUsers, count: counts.users, link: '/admin/users', bgColor: 'bg-blue-500' },
-    { title: 'Produk', icon: FaBox, count: counts.products, link: '/admin/products', bgColor: 'bg-green-500' },
-    { title: 'Pesanan', icon: FaClipboardList, count: counts.orders, link: '/admin/orders', bgColor: 'bg-yellow-500' },
-    { title: 'Pengaturan', icon: FaCog, count: counts.settings, link: '/admin/settings', bgColor: 'bg-red-500' },
+    {
+      title: "Pengguna",
+      icon: FaUsers,
+      count: counts.users,
+      link: "/admin/users",
+      bgColor: "bg-blue-500",
+    },
+    {
+      title: "Produk",
+      icon: FaBox,
+      count: counts.products,
+      link: "/admin/products",
+      bgColor: "bg-green-500",
+    },
+    {
+      title: "Pesanan",
+      icon: FaClipboardList,
+      count: counts.orders,
+      link: "/admin/orders",
+      bgColor: "bg-yellow-500",
+    },
+    {
+      title: "Pengaturan",
+      icon: FaCog,
+      count: counts.settings,
+      link: "/admin/settings",
+      bgColor: "bg-red-500",
+    },
   ];
 
   return (
@@ -71,8 +101,8 @@ function AdminDashboard() {
 
 export default function AdminPage() {
   return (
-    <AdminLayout>
+    <>
       <AdminDashboard />
-    </AdminLayout>
+    </>
   );
 }
