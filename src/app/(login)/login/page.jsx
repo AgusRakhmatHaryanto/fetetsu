@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { toast, ToastContainer } from 'react-toastify';
@@ -11,6 +11,14 @@ export default function Login() {
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const router = useRouter();
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const userId = localStorage.getItem('userId');
+      const token = localStorage.getItem('token');
+      // Handle the case when userId and token are already stored in localStorage
+    }
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -29,9 +37,11 @@ export default function Login() {
       const data = await response.json();
       
       if (response.ok) {
-        localStorage.setItem('userId', data.data.userId);
-        localStorage.setItem('token', data.data.token);
-        console.log(data.data.userId)
+        if (typeof window !== 'undefined') {
+          localStorage.setItem('userId', data.data.userId);
+          localStorage.setItem('token', data.data.token);
+        }
+        console.log(data.data.userId);
         toast.success('Login berhasil!');
         router.push('/page/dashboard'); 
       } else {

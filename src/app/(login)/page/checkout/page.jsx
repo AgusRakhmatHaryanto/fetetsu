@@ -13,7 +13,7 @@ export default function OrderPage() {
   const [note, setNote] = useState('');
   const [loading, setLoading] = useState(false);
   const [user, setUser] = useState({});
-  const userId = localStorage.getItem('userId');
+  const [userId, setUserId] = useState(null);
 
   const [street, setStreet] = useState('');
   const [village, setVillage] = useState('');
@@ -23,8 +23,11 @@ export default function OrderPage() {
   const [postalCode, setPostalCode] = useState('');
 
   useEffect(() => {
-    const items = JSON.parse(localStorage.getItem('cartItems')) || [];
-    setCartItems(items);
+    if (typeof window !== 'undefined') {
+      const items = JSON.parse(localStorage.getItem('cartItems')) || [];
+      setCartItems(items);
+      setUserId(localStorage.getItem('userId'));
+    }
 
     // Fetch user data
     const fetchUserData = async () => {
@@ -43,7 +46,9 @@ export default function OrderPage() {
       }
     };
 
-    fetchUserData();
+    if (userId) {
+      fetchUserData();
+    }
   }, [userId]);
 
   const calculateTotal = () => {
@@ -95,7 +100,9 @@ export default function OrderPage() {
       console.log('Order Response:', response.data);
 
       // Bersihkan keranjang
-      localStorage.removeItem('cartItems');
+      if (typeof window !== 'undefined') {
+        localStorage.removeItem('cartItems');
+      }
 
       toast.success('Pesanan berhasil dibuat!');
       router.push(`/page/order`);

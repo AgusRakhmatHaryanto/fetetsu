@@ -23,23 +23,25 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
 
   useEffect(() => {
     const fetchUserType = async () => {
-      const userId = localStorage.getItem("userId");
-      if (!!userId && userId === "customer") {
-        router.push("/");
-      }
-      if (userId) {
-        try {
-          const response = await fetch(`http://localhost:8081/api/v1/users/${userId}`);
-          const data = await response.json();
-          setUserType(data.data.role);
-        } catch (error) {
-          console.error("Error fetching user type:", error);
+      if (typeof window !== 'undefined') {
+        const userId = localStorage.getItem("userId");
+        if (!!userId && userId === "customer") {
+          router.push("/");
+        }
+        if (userId) {
+          try {
+            const response = await fetch(`http://localhost:8081/api/v1/users/${userId}`);
+            const data = await response.json();
+            setUserType(data.data.role);
+          } catch (error) {
+            console.error("Error fetching user type:", error);
+          }
         }
       }
     };
 
     fetchUserType();
-  }, []);
+  }, [router]);
 
   const navItems = [
     {

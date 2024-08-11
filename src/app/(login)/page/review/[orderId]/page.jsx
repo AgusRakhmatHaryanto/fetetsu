@@ -17,26 +17,28 @@ export default function ReviewPage({ params }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const userId = localStorage.getItem('userId');
-    if (!userId) {
-      toast.error('Silakan login terlebih dahulu');
-      router.push('/login');
-      return;
-    }
+    if (typeof window !== 'undefined') {
+      const userId = localStorage.getItem('userId');
+      if (!userId) {
+        toast.error('Silakan login terlebih dahulu');
+        router.push('/login');
+        return;
+      }
 
-    try {
-      await axios.post('http://localhost:8081/api/v1/reviews', {
-        orderId,
-        userId,
-        productId,
-        rating,
-        description,
-      });
-      toast.success('Review berhasil dikirim');
-      router.push('/page/order');
-    } catch (error) {
-      console.error('Error submitting review:', error);
-      toast.error('Terjadi kesalahan saat mengirim review');
+      try {
+        await axios.post('http://localhost:8081/api/v1/reviews', {
+          orderId,
+          userId,
+          productId,
+          rating,
+          description,
+        });
+        toast.success('Review berhasil dikirim');
+        router.push('/page/order');
+      } catch (error) {
+        console.error('Error submitting review:', error);
+        toast.error('Terjadi kesalahan saat mengirim review');
+      }
     }
   };
 

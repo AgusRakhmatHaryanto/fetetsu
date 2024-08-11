@@ -13,13 +13,21 @@ export default function OrderPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [activeTab, setActiveTab] = useState('BELUM_BAYAR');
+  const [userId, setUserId] = useState(null);
 
   useEffect(() => {
-    fetchOrders();
+    if (typeof window !== 'undefined') {
+      setUserId(localStorage.getItem('userId'));
+    }
   }, []);
 
+  useEffect(() => {
+    if (userId) {
+      fetchOrders();
+    }
+  }, [userId]);
+
   const fetchOrders = async () => {
-    const userId = localStorage.getItem('userId');
     if (!userId) {
       toast.error('Silakan login terlebih dahulu');
       router.push('/login');

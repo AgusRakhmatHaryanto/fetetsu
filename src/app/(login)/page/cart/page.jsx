@@ -11,15 +11,19 @@ export default function CartPage() {
   const [cartItems, setCartItems] = useState([]);
 
   useEffect(() => {
-    const items = JSON.parse(localStorage.getItem('cartItems')) || [];
-    setCartItems(items);
+    if (typeof window !== 'undefined') {
+      const items = JSON.parse(localStorage.getItem('cartItems')) || [];
+      setCartItems(items);
+    }
   }, []);
 
   const handleRemoveItem = (index) => {
     const updatedCartItems = [...cartItems];
     updatedCartItems.splice(index, 1);
     setCartItems(updatedCartItems);
-    localStorage.setItem('cartItems', JSON.stringify(updatedCartItems));
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('cartItems', JSON.stringify(updatedCartItems));
+    }
     toast.success('Produk berhasil dihapus dari keranjang!');
   };
 

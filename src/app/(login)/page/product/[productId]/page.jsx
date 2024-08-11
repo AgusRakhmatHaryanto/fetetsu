@@ -65,24 +65,26 @@ export default function ProductDetail() {
 
     if (product) {
       const parsedSize = parseFloat(size);
-      const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
-      const existingProductIndex = cartItems.findIndex(item => 
-        item.id === product.id && item.size === parsedSize
-      );
+      if (typeof window !== 'undefined') {
+        const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+        const existingProductIndex = cartItems.findIndex(item => 
+          item.id === product.id && item.size === parsedSize
+        );
 
-      if (existingProductIndex !== -1) {
-        cartItems[existingProductIndex].quantity += 1;
-      } else {
-        cartItems.push({ 
-          ...product, 
-          quantity: 1, 
-          size: parsedSize 
-        });
+        if (existingProductIndex !== -1) {
+          cartItems[existingProductIndex].quantity += 1;
+        } else {
+          cartItems.push({ 
+            ...product, 
+            quantity: 1, 
+            size: parsedSize 
+          });
+        }
+
+        localStorage.setItem('cartItems', JSON.stringify(cartItems));
+        toast.success('Produk berhasil ditambahkan ke keranjang!');
+        setSize('');
       }
-
-      localStorage.setItem('cartItems', JSON.stringify(cartItems));
-      toast.success('Produk berhasil ditambahkan ke keranjang!');
-      setSize('');
     }
   };
 

@@ -10,15 +10,19 @@ const Header = () => {
   const router = useRouter();
 
   useEffect(() => {
-    const userId = localStorage.getItem('userId');
-    const token = localStorage.getItem('token');
-    setIsLoggedIn(!!userId && !!token);
-    setUserId(userId); // Set userId state
+    if (typeof window !== 'undefined') {
+      const userId = localStorage.getItem('userId');
+      const token = localStorage.getItem('token');
+      setIsLoggedIn(!!userId && !!token);
+      setUserId(userId); // Set userId state
+    }
   }, []);
 
   const handleLogout = () => {
-    localStorage.removeItem('userId');
-    localStorage.removeItem('token');
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem('userId');
+      localStorage.removeItem('token');
+    }
     setIsLoggedIn(false);
     router.push('/');
   };
