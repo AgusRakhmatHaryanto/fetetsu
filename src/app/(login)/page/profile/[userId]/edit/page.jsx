@@ -28,7 +28,7 @@ export default function EditUser() {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await axios.get(`http://localhost:8081/api/v1/users/${userId}`);
+        const response = await axios.get(`https://betetsuberkah-6f6722853e65.herokuapp.com/users/${userId}`);
         setUserData(response.data.data);
         setLoading(false);
       } catch (error) {
@@ -78,7 +78,7 @@ export default function EditUser() {
       }
 
       await axios.put(
-        `http://localhost:8081/api/v1/users/${userId}`,
+        `https://betetsuberkah-6f6722853e65.herokuapp.com/users/${userId}`,
         formData,
         {
           headers: {

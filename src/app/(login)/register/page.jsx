@@ -53,7 +53,7 @@ export default function Register() {
       }
 
       // Cek apakah email sudah digunakan
-      const emailCheckResponse = await axios.get(`http://localhost:8081/api/v1/users/email/${userData.email}`);
+      const emailCheckResponse = await axios.get(`https://betetsuberkah-6f6722853e65.herokuapp.com/users/email/${userData.email}`);
       if (emailCheckResponse.data.exists) {
         throw new Error("Email sudah digunakan.");
       }
@@ -67,7 +67,7 @@ export default function Register() {
       }
 
       const response = await axios.post(
-        `http://localhost:8081/api/v1/users`,
+        `https://betetsuberkah-6f6722853e65.herokuapp.com/users`,
         formData,
         {
           headers: {

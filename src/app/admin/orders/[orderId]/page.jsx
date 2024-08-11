@@ -23,8 +23,8 @@ const OrderDetail = () => {
     try {
       setLoading(true); // Set loading ke true saat mulai mengambil data
       const [orderResponse, productsResponse] = await Promise.all([
-        axios.get(`http://localhost:8081/api/v1/orders/${orderId}`),
-        axios.get('http://localhost:8081/api/v1/products'),
+        axios.get(`https://betetsuberkah-6f6722853e65.herokuapp.com/orders/${orderId}`),
+        axios.get('https://betetsuberkah-6f6722853e65.herokuapp.com/products'),
       ]);
       setOrder(orderResponse.data.data);
       setProducts(productsResponse.data.data);
@@ -43,7 +43,7 @@ const OrderDetail = () => {
   const updateOrderTotalPrice = async (updatedItems) => {
     const newTotalPrice = calculateTotalPrice(updatedItems);
     try {
-      await axios.put(`http://localhost:8081/api/v1/orders/${orderId}`, { totalPrice: newTotalPrice });
+      await axios.put(`https://betetsuberkah-6f6722853e65.herokuapp.com/orders/${orderId}`, { totalPrice: newTotalPrice });
       setOrder({ ...order, items: updatedItems, totalPrice: newTotalPrice });
     } catch (error) {
       console.error('Error updating order total price:', error);
@@ -72,7 +72,7 @@ const OrderDetail = () => {
 
     try {
       // Tambahkan item baru ke dalam pesanan
-      const response = await axios.post(`http://localhost:8081/api/v1/order-item`, { ...newItem, orderId });
+      const response = await axios.post(`https://betetsuberkah-6f6722853e65.herokuapp.com/order-item`, { ...newItem, orderId });
       const updatedItems = [...order.items, response.data.data];
       await updateOrderTotalPrice(updatedItems);
       setNewItem({ productId: '', size: 0, price: 0 });
@@ -89,7 +89,7 @@ const OrderDetail = () => {
     }
 
     try {
-      await axios.delete(`http://localhost:8081/api/v1/order-item/${itemId}`);
+      await axios.delete(`https://betetsuberkah-6f6722853e65.herokuapp.com/order-item/${itemId}`);
       const updatedItems = order.items.filter(item => item.id !== itemId);
       await updateOrderTotalPrice(updatedItems);
     } catch (error) {
@@ -101,7 +101,7 @@ const OrderDetail = () => {
   const handleEditItem = async (index) => {
     try {
       const { id, productId, size, price } = editingItem;
-      const response = await axios.put(`http://localhost:8081/api/v1/order-item/${id}`, { productId, size, price });
+      const response = await axios.put(`https://betetsuberkah-6f6722853e65.herokuapp.com/order-item/${id}`, { productId, size, price });
       const updatedItems = [...order.items];
       updatedItems[index] = response.data.data;
       await updateOrderTotalPrice(updatedItems);

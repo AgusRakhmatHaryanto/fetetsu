@@ -14,7 +14,7 @@ export default function Category(){
     useEffect(() => {
         const fetchCategories = async () => {
             try {
-                const response = await axios.get('http://localhost:8081/api/v1/categories');
+                const response = await axios.get('https://betetsuberkah-6f6722853e65.herokuapp.com/categories');
                 console.log('Response:', response);
                 const result = response.data;
                 console.log('Result:', result);
@@ -44,7 +44,7 @@ export default function Category(){
 
     const handleSave = async (id) => {
         try {
-            await axios.put(`http://localhost:8081/api/v1/categories/${id}`, { name: newCategoryName });
+            await axios.put(`https://betetsuberkah-6f6722853e65.herokuapp.com/categories/${id}`, { name: newCategoryName });
             const updatedCategories = categories.map(category => {
                 if (category.id === id) {
                     category.name = newCategoryName;
@@ -62,7 +62,7 @@ export default function Category(){
 
     const handleDelete = async (id) => {
         try {
-            await axios.delete(`http://localhost:8081/api/v1/categories/${id}`);
+            await axios.delete(`https://betetsuberkah-6f6722853e65.herokuapp.com/categories/${id}`);
             setCategories(categories.filter(category => category.id !== id));
             toast.success('Category deleted successfully');
         } catch (error) {
@@ -73,7 +73,7 @@ export default function Category(){
 
     const handleAddCategory = async () => {
         try {
-            const response = await axios.post('http://localhost:8081/api/v1/categories', { name: newCategory });
+            const response = await axios.post('https://betetsuberkah-6f6722853e65.herokuapp.com/categories', { name: newCategory });
             setCategories([...categories, response.data.data]);
             setNewCategory("");
             toast.success('Category added successfully');

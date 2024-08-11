@@ -23,8 +23,8 @@ const CreateOrder = () => {
     const fetchUsersAndProducts = async () => {
       try {
         const [usersResponse, productsResponse] = await Promise.all([
-          axios.get('http://localhost:8081/api/v1/users'),
-          axios.get('http://localhost:8081/api/v1/products'),
+          axios.get('https://betetsuberkah-6f6722853e65.herokuapp.com/users'),
+          axios.get('https://betetsuberkah-6f6722853e65.herokuapp.com/products'),
         ]);
         setUsers(usersResponse.data.data);
         setProducts(productsResponse.data.data);
@@ -70,7 +70,7 @@ const CreateOrder = () => {
         note,
         ...address
       };
-      await axios.post('http://localhost:8081/api/v1/orders', orderData);
+      await axios.post('https://betetsuberkah-6f6722853e65.herokuapp.com/orders', orderData);
       alert('Order created successfully');
       router.push('/admin/orders');
     } catch (error) {
