@@ -10,29 +10,23 @@ function AdminDashboard() {
     users: 0,
     products: 0,
     orders: 0,
-    settings: null, // Assuming settings don't need a count
+    settings: null,
   });
 
   useEffect(() => {
     const fetchCounts = async () => {
       try {
         const [usersRes, productsRes, ordersRes] = await Promise.all([
-          axios.get(
-            "https://betetsuberkah-6f6722853e65.herokuapp.com/api/v1/users"
-          ),
-          axios.get(
-            "https://betetsuberkah-6f6722853e65.herokuapp.com/api/v1/products"
-          ),
-          axios.get(
-            "https://betetsuberkah-6f6722853e65.herokuapp.com/api/v1/orders"
-          ),
+          axios.get(`${process.env.API_URL}users`),
+          axios.get(`${process.env.API_URL}products`),
+          axios.get(`${process.env.API_URL}orders`),
         ]);
 
         setCounts({
           users: usersRes.data.data.length,
           products: productsRes.data.data.length,
           orders: ordersRes.data.data.length,
-          settings: null, // Assuming settings don't need a count
+          settings: null,
         });
       } catch (error) {
         console.error("Error fetching counts:", error);

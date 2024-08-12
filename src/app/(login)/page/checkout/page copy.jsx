@@ -50,7 +50,7 @@ export default function OrderPage() {
     console.log('Order Data:', orderData);
 
     try {
-      const response = await fetch('https://betetsuberkah-6f6722853e65.herokuapp.com/api/v1/orders', {
+      const response = await fetch(`${process.env.API_URL}orders`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

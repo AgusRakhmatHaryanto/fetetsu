@@ -32,7 +32,7 @@ export default function OrderPage() {
     // Fetch user data
     const fetchUserData = async () => {
       try {
-        const response = await axios.get(`https://betetsuberkah-6f6722853e65.herokuapp.com/api/v1/users/${userId}`);
+        const response = await axios.get(`${process.env.API_URL}users/${userId}`);
         const userData = response.data.data;
         setUser(userData);
         setStreet(userData.street || '');
@@ -91,7 +91,7 @@ export default function OrderPage() {
     console.log('Order Data:', orderData);
 
     try {
-      const response = await axios.post('https://betetsuberkah-6f6722853e65.herokuapp.com/api/v1/orders', orderData, {
+      const response = await axios.post(`${process.env.API_URL}orders`, orderData, {
         headers: {
           'Content-Type': 'application/json',
         },

@@ -1,24 +1,25 @@
 'use client'
 
 import axios from "axios";
-import React, {useEffect, useState} from "react"
-import { FaImage, FaEdit, FaTrash } from 'react-icons/fa'; // Import ikon dari react-icons
+import React, { useEffect, useState } from "react";
+import { FaImage, FaEdit, FaTrash } from 'react-icons/fa';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-export default function Category(){
-    const [categories, setCategories] = useState([])
-    const [editingCategory, setEditingCategory] = useState(null); // State untuk kategori yang sedang diedit
-    const [newCategoryName, setNewCategoryName] = useState(""); // State untuk nama kategori baru
-    const [newCategory, setNewCategory] = useState(""); // State untuk kategori baru
+
+export default function Category() {
+    const [categories, setCategories] = useState([]);
+    const [editingCategory, setEditingCategory] = useState(null);
+    const [newCategoryName, setNewCategoryName] = useState("");
+    const [newCategory, setNewCategory] = useState("");
 
     useEffect(() => {
         const fetchCategories = async () => {
             try {
-                const response = await axios.get('https://betetsuberkah-6f6722853e65.herokuapp.com/api/v1/categories');
+                const response = await axios.get(`${process.env.API_URL}categories`);
                 console.log('Response:', response);
                 const result = response.data;
                 console.log('Result:', result);
-                setCategories(result.data); // Mengakses data dari respons API
+                setCategories(result.data);
             } catch (error) {
                 console.error('Error fetching categories:', error);
             }
@@ -44,7 +45,7 @@ export default function Category(){
 
     const handleSave = async (id) => {
         try {
-            await axios.put(`https://betetsuberkah-6f6722853e65.herokuapp.com/api/v1/categories/${id}`, { name: newCategoryName });
+            await axios.put(`${process.env.API_URL}categories/${id}`, { name: newCategoryName });
             const updatedCategories = categories.map(category => {
                 if (category.id === id) {
                     category.name = newCategoryName;
@@ -62,7 +63,7 @@ export default function Category(){
 
     const handleDelete = async (id) => {
         try {
-            await axios.delete(`https://betetsuberkah-6f6722853e65.herokuapp.com/api/v1/categories/${id}`);
+            await axios.delete(`${process.env.API_URL}categories/${id}`);
             setCategories(categories.filter(category => category.id !== id));
             toast.success('Category deleted successfully');
         } catch (error) {
@@ -73,7 +74,7 @@ export default function Category(){
 
     const handleAddCategory = async () => {
         try {
-            const response = await axios.post('https://betetsuberkah-6f6722853e65.herokuapp.com/api/v1/categories', { name: newCategory });
+            const response = await axios.post(`${process.env.API_URL}categories`, { name: newCategory });
             setCategories([...categories, response.data.data]);
             setNewCategory("");
             toast.success('Category added successfully');
@@ -188,6 +189,5 @@ export default function Category(){
                 </tbody>
             </table>
         </div>
-
     );
 }

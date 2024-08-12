@@ -5,8 +5,7 @@ import React, { useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { FaPlus, FaTrash } from "react-icons/fa";
-import { useRouter } from "next/navigation";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 
 function DropdownCheckbox({ options, selectedValues, onChange }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -53,11 +52,11 @@ export default function EditProduct() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const categoriesResponse = await axios.get("https://betetsuberkah-6f6722853e65.herokuapp.com/api/v1/categories");
+        const categoriesResponse = await axios.get(`${process.env.API_URL}categories`);
         setCategories(categoriesResponse.data.data);
 
         if (productId) {
-          const productResponse = await axios.get(`https://betetsuberkah-6f6722853e65.herokuapp.com/api/v1/products/${productId}`);
+          const productResponse = await axios.get(`${process.env.API_URL}products/${productId}`);
           const productData = productResponse.data.data;
           console.log(productData);
           setFormData({
@@ -104,7 +103,7 @@ export default function EditProduct() {
 
     try {
       const response = await axios.put(
-        `https://betetsuberkah-6f6722853e65.herokuapp.com/api/v1/products/${productId}`,
+        `${process.env.API_URL}products/${productId}`,
         formDataToSend,
         {
           headers: {
@@ -114,7 +113,6 @@ export default function EditProduct() {
       );
       toast.success("Produk berhasil diperbarui");
       router.back();
-      // Redirect or reset form
     } catch (error) {
       console.error("Error updating product:", error);
       toast.error("Gagal memperbarui produk");

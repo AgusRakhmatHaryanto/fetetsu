@@ -10,7 +10,7 @@ const OrderDetail = () => {
   const [products, setProducts] = useState([]);
   const [newItem, setNewItem] = useState({ productId: '', size: 0, price: 0 });
   const [editingItem, setEditingItem] = useState(null);
-  const [loading, setLoading] = useState(true); // Tambahkan state loading
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const router = useRouter();
   const { orderId } = useParams();
@@ -21,10 +21,10 @@ const OrderDetail = () => {
 
   const fetchOrderAndProducts = async () => {
     try {
-      setLoading(true); // Set loading ke true saat mulai mengambil data
+      setLoading(true);
       const [orderResponse, productsResponse] = await Promise.all([
-        axios.get(`https://betetsuberkah-6f6722853e65.herokuapp.com/api/v1/orders/${orderId}`),
-        axios.get('https://betetsuberkah-6f6722853e65.herokuapp.com/api/v1/products'),
+        axios.get(`${process.env.API_URL}orders/${orderId}`),
+        axios.get(`${process.env.API_URL}products`),
       ]);
       setOrder(orderResponse.data.data);
       setProducts(productsResponse.data.data);
@@ -32,7 +32,7 @@ const OrderDetail = () => {
       console.error('Error fetching order or products:', err);
       setError('Terjadi kesalahan saat mengambil data pesanan atau produk');
     } finally {
-      setLoading(false); // Set loading ke false setelah data diambil
+      setLoading(false);
     }
   };
 
@@ -43,7 +43,7 @@ const OrderDetail = () => {
   const updateOrderTotalPrice = async (updatedItems) => {
     const newTotalPrice = calculateTotalPrice(updatedItems);
     try {
-      await axios.put(`https://betetsuberkah-6f6722853e65.herokuapp.com/api/v1/orders/${orderId}`, { totalPrice: newTotalPrice });
+      await axios.put(`${process.env.API_URL}orders/${orderId}`, { totalPrice: newTotalPrice });
       setOrder({ ...order, items: updatedItems, totalPrice: newTotalPrice });
     } catch (error) {
       console.error('Error updating order total price:', error);
@@ -71,8 +71,7 @@ const OrderDetail = () => {
     }
 
     try {
-      // Tambahkan item baru ke dalam pesanan
-      const response = await axios.post(`https://betetsuberkah-6f6722853e65.herokuapp.com/api/v1/order-item`, { ...newItem, orderId });
+      const response = await axios.post(`${process.env.API_URL}order-item`, { ...newItem, orderId });
       const updatedItems = [...order.items, response.data.data];
       await updateOrderTotalPrice(updatedItems);
       setNewItem({ productId: '', size: 0, price: 0 });
@@ -89,7 +88,7 @@ const OrderDetail = () => {
     }
 
     try {
-      await axios.delete(`https://betetsuberkah-6f6722853e65.herokuapp.com/api/v1/order-item/${itemId}`);
+      await axios.delete(`${process.env.API_URL}order-item/${itemId}`);
       const updatedItems = order.items.filter(item => item.id !== itemId);
       await updateOrderTotalPrice(updatedItems);
     } catch (error) {
@@ -101,7 +100,7 @@ const OrderDetail = () => {
   const handleEditItem = async (index) => {
     try {
       const { id, productId, size, price } = editingItem;
-      const response = await axios.put(`https://betetsuberkah-6f6722853e65.herokuapp.com/api/v1/order-item/${id}`, { productId, size, price });
+      const response = await axios.put(`${process.env.API_URL}order-item/${id}`, { productId, size, price });
       const updatedItems = [...order.items];
       updatedItems[index] = response.data.data;
       await updateOrderTotalPrice(updatedItems);
@@ -116,7 +115,7 @@ const OrderDetail = () => {
     return (
       <AdminLayout>
         <div className="flex justify-center items-center h-screen">
-          <div className="loader"></div> {/* Indikator pemuatan */}
+          <div className="loader"></div>
         </div>
       </AdminLayout>
     );
@@ -130,7 +129,6 @@ const OrderDetail = () => {
     );
   }
 
-  // Filter produk yang sudah ada di item pesanan
   const availableProducts = products.filter(product => !order.items.some(item => item.productId === product.id));
 
   return (

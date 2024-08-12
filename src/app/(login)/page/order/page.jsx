@@ -36,7 +36,7 @@ export default function OrderPage() {
 
     try {
       setLoading(true);
-      const response = await axios.get(`https://betetsuberkah-6f6722853e65.herokuapp.com/api/v1/orders/user/${userId}`);
+      const response = await axios.get(`${process.env.API_URL}api/v1/orders/user/${userId}`);
       setOrders(Array.isArray(response.data.data) ? response.data.data : [response.data.data]);
     } catch (error) {
       console.error('Error fetching orders:', error);
@@ -52,7 +52,7 @@ export default function OrderPage() {
 
   const handleCancelOrder = async (orderId) => {
     try {
-      await axios.delete(`https://betetsuberkah-6f6722853e65.herokuapp.com/api/v1/orders/${orderId}/`);
+      await axios.delete(`${process.env.API_URL}api/v1/orders/${orderId}/`);
       toast.success('Pesanan berhasil dibatalkan');
       fetchOrders();
     } catch (error) {

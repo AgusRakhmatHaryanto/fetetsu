@@ -23,7 +23,7 @@ export default function OrderDetail({ params }) {
     try {
       setLoading(true);
       const response = await axios.get(
-        `https://betetsuberkah-6f6722853e65.herokuapp.com/api/v1/orders/${orderId}`
+        `${process.env.API_URL}orders/${orderId}`
       );
       setOrder(response.data.data);
     } catch (error) {
@@ -37,7 +37,7 @@ export default function OrderDetail({ params }) {
   const fetchProgressData = async (orderItemId) => {
     try {
       const response = await axios.get(
-        `https://betetsuberkah-6f6722853e65.herokuapp.com/api/v1/progress/order-item/${orderItemId}`
+        `${process.env.API_URL}progress/order-item/${orderItemId}`
       );
       setProgressData((prev) => ({
         ...prev,

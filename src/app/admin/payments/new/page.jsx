@@ -19,7 +19,7 @@ export default function NewPaymentProof() {
   const fetchOrders = async () => {
     try {
       setLoading(true);
-      const response = await axios.get('https://betetsuberkah-6f6722853e65.herokuapp.com/api/v1/orders');
+      const response = await axios.get(`${process.env.API_URL}orders`);
       if (response.status !== 200) {
         throw new Error('Gagal mengambil data pesanan');
       }
@@ -53,12 +53,12 @@ export default function NewPaymentProof() {
     formData.append('paymentImage', newPaymentProof.paymentImage);
 
     try {
-      const response = await axios.post('https://betetsuberkah-6f6722853e65.herokuapp.com/api/v1/payment-proof', formData);
+      const response = await axios.post(`${process.env.API_URL}payment-proof`, formData);
       if (response.status !== 200) {
         throw new Error('Gagal menambahkan bukti pembayaran');
       }
 
-      await axios.put(`https://betetsuberkah-6f6722853e65.herokuapp.com/api/v1/orders/${newPaymentProof.orderId}`, {
+      await axios.put(`${process.env.API_URL}orders/${newPaymentProof.orderId}`, {
         paymentStatus: 'PAYED'
       });
       toast.success('Bukti pembayaran berhasil ditambahkan');

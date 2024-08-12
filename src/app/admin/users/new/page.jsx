@@ -63,7 +63,7 @@ export default function CreateUser() {
       }
 
       const response = await axios.post(
-        `https://betetsuberkah-6f6722853e65.herokuapp.com/api/v1/users`,
+        `${process.env.API_URL}users`,
         formData,
         {
           headers: {
@@ -121,7 +121,7 @@ export default function CreateUser() {
         <div className="mb-4">
           <label
             className="block text-gray-700 text-sm font-bold mb-2"
-            htmlFor="phone"
+            htmlFor="name"
           >
             Nama Lengkap
           </label>

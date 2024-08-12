@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import axios from 'axios';
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -25,18 +26,14 @@ export default function Login() {
     setLoading(true);
 
     try {
-      // Ganti URL ini dengan endpoint API login Anda
-      const response = await fetch('https://betetsuberkah-6f6722853e65.herokuapp.com/api/v1/users/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email, password }),
+      const response = await axios.post(process.env.API_URL + 'users/login', {
+        email,
+        password,
       });
 
-      const data = await response.json();
+      const data = response.data;
       
-      if (response.ok) {
+      if (response.status === 200) {
         if (typeof window !== 'undefined') {
           localStorage.setItem('userId', data.data.userId);
           localStorage.setItem('token', data.data.token);

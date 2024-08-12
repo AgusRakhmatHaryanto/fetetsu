@@ -26,7 +26,7 @@ export default function ReviewPage({ params }) {
       }
 
       try {
-        await axios.post('https://betetsuberkah-6f6722853e65.herokuapp.com/api/v1/reviews', {
+        await axios.post(`${process.env.API_URL}reviews`, {
           orderId,
           userId,
           productId,

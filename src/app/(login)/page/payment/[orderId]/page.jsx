@@ -20,7 +20,7 @@ export default function PaymentPage({ params }) {
 
   const fetchOrder = async () => {
     try {
-      const response = await axios.get(`https://betetsuberkah-6f6722853e65.herokuapp.com/api/v1/orders/${orderId}`);
+      const response = await axios.get(`${process.env.API_URL}orders/${orderId}`);
       setOrder(response.data.data);
     } catch (error) {
       console.error('Error fetching order:', error);
@@ -46,7 +46,7 @@ export default function PaymentPage({ params }) {
     formData.append('orderId', orderId);
 
     try {
-      const response = await axios.post('https://betetsuberkah-6f6722853e65.herokuapp.com/api/v1/payment-proof', formData);
+      const response = await axios.post(`${process.env.API_URL}payment-proof`, formData);
       toast.success('Bukti pembayaran berhasil diunggah');
       setSelectedFile(null);
       fetchOrder(); // Refresh order data

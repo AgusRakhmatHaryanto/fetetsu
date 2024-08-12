@@ -63,7 +63,7 @@ export default function Register() {
       }
 
       const response = await axios.post(
-        `https://betetsuberkah-6f6722853e65.herokuapp.com/api/v1/users`,
+        `${process.env.API_URL}users`,
         formData,
         {
           headers: {

@@ -15,7 +15,7 @@ export default function UserDashboard() {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get('https://betetsuberkah-6f6722853e65.herokuapp.com/api/v1/products');
+        const response = await axios.get(process.env.API_URL + 'products');
         setProducts(response.data.data);
       } catch (error) {
         console.error('Error fetching products:', error);

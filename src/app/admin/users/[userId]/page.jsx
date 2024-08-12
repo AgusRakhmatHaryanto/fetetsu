@@ -19,7 +19,7 @@ export default function UserById() {
       setLoading(true);
       try {
         const response = await axios.get(
-          `https://betetsuberkah-6f6722853e65.herokuapp.com/api/v1/users/${id}`
+          `${process.env.API_URL}users/${id}`
         );
         setUser(response.data.data);
         setError(null);

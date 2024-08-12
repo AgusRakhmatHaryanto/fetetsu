@@ -20,7 +20,7 @@ export default function AdminPaymentProof() {
     try {
       setLoading(true);
       const response = await axios.get(
-        "https://betetsuberkah-6f6722853e65.herokuapp.com/api/v1/payment-proof"
+        `${process.env.API_URL}payment-proof`
       );
       if (response.status !== 200) {
         throw new Error("Gagal mengambil data bukti pembayaran");
@@ -48,7 +48,7 @@ export default function AdminPaymentProof() {
       const ordersData = await Promise.all(
         uniqueOrderIds.map(async (orderId) => {
           const response = await axios.get(
-            `https://betetsuberkah-6f6722853e65.herokuapp.com/api/v1/orders/${orderId}`
+            `${process.env.API_URL}orders/${orderId}`
           );
           if (response.status !== 200) {
             throw new Error(
@@ -79,7 +79,7 @@ export default function AdminPaymentProof() {
   const handleApprove = async (orderId) => {
     try {
       const response = await axios.put(
-        `https://betetsuberkah-6f6722853e65.herokuapp.com/api/v1/orders/${orderId}`,
+        `${process.env.API_URL}orders/${orderId}`,
         {
           paymentStatus: "ACC",
         }
@@ -98,7 +98,7 @@ export default function AdminPaymentProof() {
   const handleReject = async (id) => {
     try {
       const response = await axios.put(
-        `https://betetsuberkah-6f6722853e65.herokuapp.com/api/v1/payment-proof/${id}/reject`
+        `${process.env.API_URL}payment-proof/${id}/reject`
       );
       if (response.status !== 200) {
         throw new Error("Gagal menolak bukti pembayaran");
@@ -147,7 +147,6 @@ export default function AdminPaymentProof() {
                 <th className="py-3 px-6 text-left">Order ID</th>
                 <th className="py-3 px-6 text-left">Status Pesanan</th>
                 <th className="py-3 px-6 text-left">Status Pembayaran</th>
-                {/* <th className="py-3 px-6 text-left">Status Bukti Pembayaran</th> */}
                 <th className="py-3 px-6 text-left">Tanggal Upload</th>
                 <th className="py-3 px-6 text-center">Aksi</th>
               </tr>
@@ -172,7 +171,6 @@ export default function AdminPaymentProof() {
                   <td className="py-3 px-6 text-left">
                     {getOrderStatus(proof.orderId).paymentStatus}
                   </td>
-                  {/* <td className="py-3 px-6 text-left">{proof.status}</td> */}
                   <td className="py-3 px-6 text-left">
                     {new Date(proof.createdAt).toLocaleString()}
                   </td>
